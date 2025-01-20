@@ -3,23 +3,6 @@ import "@/styles/globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-export const metadata: Metadata = {
-  title: "쿨감 효율 계산기",
-  description: "간단한 쿨감 효율 계산",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="ko">
-      <body className={`${pretendard.variable} antialiased`}>{children}</body>
-    </html>
-  );
-}
-
 const pretendard = localFont({
   src: [
     {
@@ -51,3 +34,20 @@ const pretendard = localFont({
   display: "swap",
   variable: "--font-pretendard",
 });
+
+export const metadata: Metadata = {
+  title: "쿨감 효율 계산기",
+  description: "간단한 쿨감 효율 계산",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="ko" className={pretendard.variable}>
+      <body className="antialiased">{children}</body>
+    </html>
+  );
+}

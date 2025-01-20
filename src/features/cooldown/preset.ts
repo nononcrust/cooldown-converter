@@ -10,6 +10,11 @@ const 대류: CDRPreset = {
   cdrs: [0.04, 0.04, 0.04, 0.04, 0.04] as const,
 };
 
+const 마법석115: CDRPreset = {
+  name: "115제 마법석",
+  cdrs: [0.15] as const,
+};
+
 const 월드아이돌링: CDRPreset = {
   name: "월드 아이돌 링",
   cdrs: [0.1] as const,
@@ -47,6 +52,7 @@ const 세계의경계: CDRPreset = {
 
 export const CDR_PRESETS = [
   대류,
+  마법석115,
   월드아이돌링,
   칠흑정화,
   칠흑타락,

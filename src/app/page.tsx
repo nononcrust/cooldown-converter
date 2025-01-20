@@ -68,7 +68,7 @@ export default function Home() {
 
   return (
     <main className="max-w-xl mx-auto p-4 my-16">
-      <h1 className="text-3xl font-bold">
+      <h1 className="text-3xl font-semibold">
         쿨감 계산기
         <span className="ml-2 text-base text-primary">BETA</span>
       </h1>
@@ -164,7 +164,7 @@ export default function Home() {
         </p>
       </div>
       <div className="mt-12">
-        <h2 className="font-bold text-xl">쿨감 효율표</h2>
+        <h2 className="font-semibold text-xl">쿨감 효율표</h2>
         <table className="border mt-3 w-full md:w-fit">
           <thead className="bg-gray-50 border-b">
             <tr className="text-sm">

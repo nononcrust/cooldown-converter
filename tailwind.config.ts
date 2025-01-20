@@ -9,11 +9,12 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  fontFamily: {
-    sans: ["var(--font-pretendard)", ...defaultTheme.fontFamily.sans],
-  },
+
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-pretendard)", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         background: {
           DEFAULT: "var(--background)",
