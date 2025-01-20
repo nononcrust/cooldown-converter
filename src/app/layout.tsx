@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -39,6 +39,13 @@ const pretendard = localFont({
 export const metadata: Metadata = {
   title: "쿨감 효율 계산기",
   description: "간단한 쿨감 효율 계산",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
