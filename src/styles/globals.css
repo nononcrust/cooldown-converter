@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db white;
+}
+
+.dark {
+  scrollbar-color: #6b6b6b #2c2c2c;
+}
+
+@layer base {
+  :root {
+    --background: theme("colors.white");
+    --background-100: theme("colors.neutral.100");
+    --background-200: theme("colors.neutral.200");
+    --background-hover: theme("colors.neutral.100");
+    --main: theme("colors.neutral.800");
+    --sub: theme("colors.neutral.500");
+    --subtle: theme("colors.neutral.400");
+    --border: theme("colors.neutral.200");
+    --placeholder: theme("colors.neutral.400");
+    --primary: theme("colors.blue.500");
+    --primary-dark: theme("colors.blue.600");
+    --primary-lighter: theme("colors.blue.50");
+    --primary-lighter-hover: theme("colors.blue.100");
+    --error: theme("colors.red.500");
+    --error-dark: theme("colors.red.600");
+    --error-lighter: theme("colors.red.100");
+    --secondary: theme("colors.neutral.100");
+    --secondary-dark: theme("colors.neutral.200");
+    --ring: theme("colors.blue.300");
+    --ring-error: theme("colors.red.300");
+  }
+
+  .dark {
+    --background: theme("colors.neutral.800");
+    --background-100: theme("colors.neutral.900");
+    --background-200: theme("colors.neutral.700");
+    --background-hover: theme("colors.neutral.700");
+    --main: theme("colors.neutral.100");
+    --sub: theme("colors.neutral.400");
+    --subtle: theme("colors.neutral.400");
+    --border: theme("colors.neutral.600");
+    --placeholder: theme("colors.neutral.400");
+    --error: theme("colors.red.300");
+    --secondary: theme("colors.neutral.700");
+    --secondary-dark: theme("colors.neutral.600");
+    --ring: theme("colors.blue.800");
+    --ring-error: theme("colors.red.800");
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-main;
+  }
+
+  button,
+  a {
+    @apply focus-visible:focus-ring;
+  }
+
+  .focus-ring {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  .focus-input-ring {
+    @apply border border-primary outline-none ring-[3px] ring-primary-lighter ring-offset-0;
+  }
+
+  .focus-input-ring-error {
+    @apply border border-error outline-none ring-[3px] ring-error-lighter ring-offset-0;
+  }
+
+  .disable-focus-ring {
+    @apply focus-visible:ring-0;
+  }
+}
