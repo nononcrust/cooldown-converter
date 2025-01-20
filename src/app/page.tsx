@@ -28,6 +28,7 @@ import { Dialog } from "@/components/ui/dialog";
 import { useInput } from "@/hooks/use-input";
 import { useFeedback } from "@/hooks/use-feedback";
 import { useDialog } from "@/hooks/use-dialog";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const fieldArray = useFieldArray({
@@ -212,8 +213,13 @@ const Feedback = () => {
   return (
     <Dialog open={dialog.isOpen} onOpenChange={dialog.onOpenChange}>
       <Dialog.Trigger asChild>
-        <IconButton size="xsmall" aria-label="피드백 남기기" variant="outlined">
-          <MessageSquareTextIcon size={14} />
+        <IconButton
+          className={cn("fixed right-4 bottom-4", dialog.isOpen && "invisible")}
+          size="small"
+          aria-label="피드백 남기기"
+          variant="primary"
+        >
+          <MessageSquareTextIcon size={16} />
         </IconButton>
       </Dialog.Trigger>
       <Dialog.Content className="flex flex-col w-[480px]" animation="slide">
