@@ -68,7 +68,10 @@ export default function Home() {
 
   return (
     <main className="max-w-xl mx-auto p-4 my-16">
-      <h1 className="text-3xl font-bold">쿨감 계산기</h1>
+      <h1 className="text-3xl font-bold">
+        쿨감 계산기
+        <span className="ml-2 text-base text-primary">BETA</span>
+      </h1>
       <div>
         <div className="mt-3 flex justify-end gap-2">
           <Button size="small" variant="outlined" onClick={reset}>
@@ -89,8 +92,9 @@ export default function Home() {
             <div className="flex items-center gap-2" key={field.id}>
               <div className="relative w-full">
                 <Input
+                  min={0}
                   max={100}
-                  allowNumberOnly
+                  type="number"
                   className="pr-8"
                   {...field.register}
                 />
