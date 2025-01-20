@@ -28,7 +28,6 @@ import { Dialog } from "@/components/ui/dialog";
 import { useInput } from "@/hooks/use-input";
 import { useFeedback } from "@/hooks/use-feedback";
 import { useDialog } from "@/hooks/use-dialog";
-import { cn } from "@/lib/utils";
 
 export default function Home() {
   const fieldArray = useFieldArray({
@@ -79,11 +78,13 @@ export default function Home() {
 
   return (
     <main className="max-w-xl mx-auto p-4 my-16">
-      <Feedback />
-      <h1 className="text-3xl font-semibold">
-        쿨감 계산기
-        <span className="ml-2 text-base text-primary">BETA</span>
-      </h1>
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-semibold">
+          쿨감 계산기
+          <span className="ml-2 text-base text-primary">BETA</span>
+        </h1>
+        <Feedback />
+      </div>
       <div>
         <div className="mt-3 flex justify-end gap-2">
           <Button size="small" variant="outlined" onClick={reset}>
@@ -211,13 +212,9 @@ const Feedback = () => {
   return (
     <Dialog open={dialog.isOpen} onOpenChange={dialog.onOpenChange}>
       <Dialog.Trigger asChild>
-        <Button
-          className={cn("fixed right-4 bottom-4", dialog.isOpen && "invisible")}
-          variant="primary"
-        >
+        <IconButton size="xsmall" aria-label="피드백 남기기" variant="outlined">
           <MessageSquareTextIcon size={14} />
-          피드백 남기기
-        </Button>
+        </IconButton>
       </Dialog.Trigger>
       <Dialog.Content className="flex flex-col w-[480px]" animation="slide">
         <FeedbackDialogContent onClose={dialog.close} />
