@@ -16,8 +16,19 @@ import {
 import { CDRPreset } from "@/features/cooldown/preset";
 import { useFieldArray } from "@/hooks/use-field-array";
 import { clamp, flow } from "es-toolkit";
-import { PlusIcon, RotateCcwIcon, XIcon } from "lucide-react";
+import {
+  MessageSquareTextIcon,
+  PlusIcon,
+  RotateCcwIcon,
+  XIcon,
+} from "lucide-react";
 import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
+import { Dialog } from "@/components/ui/dialog";
+import { useInput } from "@/hooks/use-input";
+import { useFeedback } from "@/hooks/use-feedback";
+import { useDialog } from "@/hooks/use-dialog";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const fieldArray = useFieldArray({
@@ -68,6 +79,7 @@ export default function Home() {
 
   return (
     <main className="max-w-xl mx-auto p-4 my-16">
+      <Feedback />
       <h1 className="text-3xl font-semibold">
         쿨감 계산기
         <span className="ml-2 text-base text-primary">BETA</span>
@@ -192,3 +204,65 @@ export default function Home() {
 }
 
 const cdrRows = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7] as const;
+
+const Feedback = () => {
+  const dialog = useDialog();
+
+  return (
+    <Dialog open={dialog.isOpen} onOpenChange={dialog.onOpenChange}>
+      <Dialog.Trigger asChild>
+        <Button
+          className={cn("fixed right-4 bottom-4", dialog.isOpen && "invisible")}
+          variant="primary"
+        >
+          <MessageSquareTextIcon size={14} />
+          피드백 남기기
+        </Button>
+      </Dialog.Trigger>
+      <Dialog.Content className="flex flex-col max-w-[480px]" animation="slide">
+        <FeedbackDialogContent onClose={dialog.close} />
+      </Dialog.Content>
+    </Dialog>
+  );
+};
+
+type FeedbackDialogContentProps = {
+  onClose: () => void;
+};
+
+const FeedbackDialogContent = ({ onClose }: FeedbackDialogContentProps) => {
+  const input = useInput();
+
+  const { isPending, submit } = useFeedback();
+
+  const onSubmit = async () => {
+    await submit(input.value);
+    onClose();
+  };
+
+  return (
+    <>
+      <Dialog.Header>
+        <Dialog.Title>피드백 남기기</Dialog.Title>
+        <Dialog.Description>
+          기능 추가 아이디어, 의견 등을 남겨주세요.
+        </Dialog.Description>
+      </Dialog.Header>
+      <Textarea
+        value={input.value}
+        onChange={input.onChange}
+        maxLength={1000}
+        className="my-4 min-h-[120px]"
+        placeholder="최대 1,000자까지 입력 가능합니다"
+      />
+      <Dialog.Footer>
+        <Button
+          disabled={input.value.length === 0 || isPending}
+          onClick={onSubmit}
+        >
+          전송하기
+        </Button>
+      </Dialog.Footer>
+    </>
+  );
+};
