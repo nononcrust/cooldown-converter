@@ -219,7 +219,7 @@ const Feedback = () => {
           피드백 남기기
         </Button>
       </Dialog.Trigger>
-      <Dialog.Content className="flex flex-col max-w-[480px]" animation="slide">
+      <Dialog.Content className="flex flex-col w-[480px]" animation="slide">
         <FeedbackDialogContent onClose={dialog.close} />
       </Dialog.Content>
     </Dialog>

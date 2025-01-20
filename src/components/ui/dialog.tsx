@@ -61,12 +61,12 @@ const DialogContent = ({
         )}
         {...props}
       >
-        {children}
         <DialogPrimitives.Close asChild className="absolute right-4 top-4">
           <IconButton variant="ghost" aria-label="닫기" size="xsmall">
             <XIcon size={16} />
           </IconButton>
         </DialogPrimitives.Close>
+        {children}
       </DialogPrimitives.Content>
     </DialogPrimitives.Portal>
   );
