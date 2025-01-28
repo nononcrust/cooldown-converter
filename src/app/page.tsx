@@ -20,6 +20,8 @@ import { PlusIcon, RotateCcwIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { TableSection } from "./_components/table-section";
 
+const MAX_FIELD_COUNT = 20;
+
 export default function Home() {
   const fieldArray = useFieldArray({
     initialValues: ["0"],
@@ -85,6 +87,7 @@ export default function Home() {
             size="small"
             variant="outlined"
             onClick={() => fieldArray.insert("0")}
+            disabled={fieldArray.fields.length >= MAX_FIELD_COUNT}
           >
             <PlusIcon size={12} />
             추가하기
@@ -98,6 +101,8 @@ export default function Home() {
                   min={0}
                   max={100}
                   type="number"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   className="pr-8"
                   {...field.register}
                 />
