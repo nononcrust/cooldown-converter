@@ -1,10 +1,6 @@
+import { PostFeedbackRequestBody } from "@/features/feedback/schema";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-
-const PostFeedbackRequestBody = z.object({
-  message: z.string().max(1000),
-});
 
 export const POST = async (request: NextRequest) => {
   const body = PostFeedbackRequestBody.parse(await request.json());

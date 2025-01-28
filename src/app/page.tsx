@@ -16,19 +16,9 @@ import {
 import { CDRPreset } from "@/features/cooldown/preset";
 import { useFieldArray } from "@/hooks/use-field-array";
 import { clamp, flow } from "es-toolkit";
-import {
-  MessageSquareTextIcon,
-  PlusIcon,
-  RotateCcwIcon,
-  XIcon,
-} from "lucide-react";
+import { PlusIcon, RotateCcwIcon, XIcon } from "lucide-react";
 import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea";
-import { Dialog } from "@/components/ui/dialog";
-import { useInput } from "@/hooks/use-input";
-import { useFeedback } from "@/hooks/use-feedback";
-import { useDialog } from "@/hooks/use-dialog";
-import { cn } from "@/lib/utils";
+import { TableSection } from "./_components/table-section";
 
 export default function Home() {
   const fieldArray = useFieldArray({
@@ -84,7 +74,6 @@ export default function Home() {
           쿨감 계산기
           <span className="ml-2 text-base text-primary">BETA</span>
         </h1>
-        <Feedback />
       </div>
       <div>
         <div className="mt-3 flex justify-end gap-2">
@@ -177,95 +166,8 @@ export default function Home() {
           최종 데미지 증가율 = 100% / (100% - 쿨타임 감소율) - 100%
         </p>
       </div>
-      <div className="mt-12">
-        <h2 className="font-semibold text-xl">쿨감 효율표</h2>
-        <table className="border mt-3 w-full md:w-fit">
-          <thead className="bg-gray-50 border-b">
-            <tr className="text-sm">
-              <th className="px-12 h-12">쿨타임 감소율</th>
-              <th className="px-12 h-12">최종 데미지 증가율</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y">
-            {cdrRows.map((cdr) => (
-              <tr key={cdr} className="divide-x h-12 text-center font-medium">
-                <td>{cdrToPercentage(cdr).toFixed(0)}%</td>
-                <td>
-                  {cdrToPercentage(convertCDRToDamageIncreateRate(cdr)).toFixed(
-                    2
-                  )}
-                  %
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <TableSection />
+      {/* <FeedbackDialog /> */}
     </main>
   );
 }
-
-const cdrRows = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7] as const;
-
-const Feedback = () => {
-  const dialog = useDialog();
-
-  return (
-    <Dialog open={dialog.isOpen} onOpenChange={dialog.onOpenChange}>
-      <Dialog.Trigger asChild>
-        <IconButton
-          className={cn("fixed right-4 bottom-4", dialog.isOpen && "invisible")}
-          size="small"
-          aria-label="피드백 남기기"
-          variant="primary"
-        >
-          <MessageSquareTextIcon size={16} />
-        </IconButton>
-      </Dialog.Trigger>
-      <Dialog.Content className="flex flex-col w-[480px]" animation="slide">
-        <FeedbackDialogContent onClose={dialog.close} />
-      </Dialog.Content>
-    </Dialog>
-  );
-};
-
-type FeedbackDialogContentProps = {
-  onClose: () => void;
-};
-
-const FeedbackDialogContent = ({ onClose }: FeedbackDialogContentProps) => {
-  const input = useInput();
-
-  const { isPending, submit } = useFeedback();
-
-  const onSubmit = async () => {
-    await submit(input.value);
-    onClose();
-  };
-
-  return (
-    <>
-      <Dialog.Header>
-        <Dialog.Title>피드백 남기기</Dialog.Title>
-        <Dialog.Description>
-          기능 추가 아이디어, 의견 등을 남겨주세요.
-        </Dialog.Description>
-      </Dialog.Header>
-      <Textarea
-        value={input.value}
-        onChange={input.onChange}
-        maxLength={1000}
-        className="my-4 min-h-[120px]"
-        placeholder="최대 1,000자까지 입력 가능합니다"
-      />
-      <Dialog.Footer>
-        <Button
-          disabled={input.value.length === 0 || isPending}
-          onClick={onSubmit}
-        >
-          전송하기
-        </Button>
-      </Dialog.Footer>
-    </>
-  );
-};
